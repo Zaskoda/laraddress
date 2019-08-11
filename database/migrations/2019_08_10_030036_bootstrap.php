@@ -25,6 +25,18 @@ class Bootstrap extends Migration
             $table->timestamps();
         });
 
+        Schema::create('address', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInt('contact_id')->index();
+            $table->string('line_1');
+            $table->string('line_2');
+            $table->string('city');
+            $table->string('state');
+            $table->string('country');
+            $table->string('zip');
+            $table->timestamps();
+        });
+
         Schema::create('identity', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->index();
