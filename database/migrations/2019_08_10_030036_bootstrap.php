@@ -15,7 +15,9 @@ class Bootstrap extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->index();
+            $table->string('name')->nullable();
+            $table->string('email')->unique();
+            $table->rememberToken();
             $table->timestamps();
         });
 
@@ -27,7 +29,7 @@ class Bootstrap extends Migration
 
         Schema::create('address', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInt('contact_id')->index();
+            $table->bigInteger('contact_id')->index();
             $table->string('line_1');
             $table->string('line_2');
             $table->string('city');
@@ -40,8 +42,8 @@ class Bootstrap extends Migration
         Schema::create('identity', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->index();
-            $table->bigInt('contact_id')->index();
-            $table->bigInt('platform_id')->index();
+            $table->bigInteger('contact_id')->index();
+            $table->bigInteger('platform_id')->index();
             $table->timestamps();
         });
     }

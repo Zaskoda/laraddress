@@ -65,29 +65,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Koda's Address Book
-                </div>
-                <div>
-                    <b>Please identify yourself:</b>
-                    <form action="/identify" method="post">
-                        @csrf
-                        <input name="email" placeholder="enter your email">
-                        <input type="submit" value="next">
-                    </form>
-                    @if (count($errors) > 0)
-                        <div class="error">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-            </div>
+            Identification: {{ $contact->email }}
         </div>
     </body>
 </html>

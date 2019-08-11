@@ -14,8 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'web'
     ],
 
     /*
@@ -46,6 +45,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'contact' => [
+            'driver' => 'session',
+            'privider' => 'contact'
+        ]
     ],
 
     /*
@@ -70,6 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'contact' => [
+            'drive' => 'eloquent',
+            'model' => App\Contact::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

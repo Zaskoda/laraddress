@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', 'HomeController@index');
+Route::post('/identify', 'HomeController@identify');
+
+Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
+    Route::get('/test', 'TestController@index');
 });
