@@ -11,9 +11,9 @@ class ContactAuthService
     const CONTACT_ID = 'contactId';
     const CONTACT_TOKEN = 'token';
 
-    public function isAuthorized()
+    static function isAuthorized()
     {
-        return (Session::has(self::CONTACT_ID));
+        return (\Session::has(self::CONTACT_ID));
     }
 
     public function getAuthorizedContact()
@@ -25,7 +25,7 @@ class ContactAuthService
     {
         $contact = Contact::where(CONTACT_TOKEN, $token)->first();
         if (!empty($contact)) {
-            $session([self::CONTACT_ID => $contactId]);
+            session([self::CONTACT_ID => $contactId]);
             return true;
         }
         return false;
@@ -33,7 +33,7 @@ class ContactAuthService
 
     public function clearAuthorizedContact()
     {
-        $session->forget(self::CONTACT_ID);
+        session()->forget(self::CONTACT_ID);
     }
 
     public function createOrLoadFromEmail($email)

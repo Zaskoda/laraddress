@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\SirenService;
 
 class Bootstrap extends Migration
 {
@@ -16,18 +17,18 @@ class Bootstrap extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->string('email')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('platforms', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->index();
+        Schema::create('emails', function (Blueprint $table) {
+            $table->bigIncrements('id');;
+            $table->bigInteger('contact_id')->index();
+            $table->string('email')->unique();
             $table->timestamps();
         });
 
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('contact_id')->index();
             $table->string('line_1');
@@ -39,10 +40,27 @@ class Bootstrap extends Migration
             $table->timestamps();
         });
 
-        Schema::create('identity', function (Blueprint $table) {
+        Schema::create('siren_services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->index();
+            $table->string('service_name')->index();
+            $table->string('url')->index();
+            $table->timestamps();
+        });
+
+        SirenService::create([
+            'service_name' => 'Twitter',
+            'url' => 'https://twitter.com/',
+        ]);
+
+        SirenService::create([
+            'service_name' => 'Facebook',
+            'url' => 'https://facebook.com/',
+        ]);
+
+        Schema::create('siren_accounts', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('contact_id')->index();
+            $table->string('account_name')->index();
             $table->bigInteger('platform_id')->index();
             $table->timestamps();
         });
@@ -56,7 +74,9 @@ class Bootstrap extends Migration
     public function down()
     {
         Schema::dropIfExists('contacts');
-        Schema::dropIfExists('platforms');
-        Schema::dropIfExists('idenity');
+        Schema::dropIfExists('emails');
+        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('siren_service');
+        Schema::dropIfExists('siren_accounts');
     }
 }

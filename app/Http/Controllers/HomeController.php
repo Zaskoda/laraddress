@@ -16,6 +16,10 @@ class HomeController extends Controller
     public function identify(IdentifyRequest $request, ContactAuthService $contactService)
     {
         $contact = $contactService->createOrLoadFromEmail($request->get('email'));
-        return view('identify', ['contact' => $contact]);
+
+        //this should send an email with a token, but for now we'll just auth
+        session([ContactAuthService::CONTACT_ID => $contact->id]);
+
+        return view('identified', ['contact' => $contact]);
     }
 }

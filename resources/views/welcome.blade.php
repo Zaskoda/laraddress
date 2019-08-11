@@ -1,93 +1,15 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.basic')
+@section('content')
+        <div class="text-center">
+            @include('partials.alerts')
+            <p><strong>Please identify yourself:</strong><br> Enter your email address in the form below so I can determine your identity.</p>
 
-        <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Koda's Address Book
-                </div>
-                <div>
-                    <b>Please identify yourself:</b>
-                    <form action="/identify" method="post">
-                        @csrf
-                        <input name="email" placeholder="enter your email">
-                        <input type="submit" value="next">
-                    </form>
-                    @if (count($errors) > 0)
-                        <div class="error">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-            </div>
+            <form action="/identify" method="post">
+                @csrf
+                <input name="email" placeholder="enter your email">
+                <input type="submit" value="check in">
+                {!! $errors->first('email', '<p class="text-warning">:message</p>') !!}
+            </form>
         </div>
-    </body>
-</html>
+@endsection('content')

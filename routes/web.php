@@ -14,7 +14,12 @@
 
 Route::get('/', 'HomeController@index');
 Route::post('/identify', 'HomeController@identify');
+Route::get('/verify', 'HomeController@verify');
 
 Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
     Route::get('/test', 'TestController@index');
+    Route::group(['middleware' => '\App\Http\Middleware\ContactAdmin::class'], function(){
+        Route::get('/admin', 'Admin\AdminController@index');
+    });
 });
+

@@ -6,3 +6,17 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+h1.header {
+    text-align: center;
+    background: $gray-700;
+    width: 100%;
+    padding: 0.5em 0;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+b,
+strong {
+    color: $gray-100;
+}
