@@ -29,7 +29,7 @@ class Bootstrap extends Migration
         Schema::create('email_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');;
             $table->bigInteger('contact_id')->index();
-            $table->string('email_address')->unique();
+            $table->string('email_address', 200)->unique('account_email_unique');
             $table->boolean('verified')->default(false);
             $table->string('verification_token', 100)->unique()->nullable();
             $table->timestamps();
