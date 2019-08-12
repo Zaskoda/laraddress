@@ -20,7 +20,7 @@ class HomeController extends Controller
 
         if ($contact) {
             $contactService->sendEmailToken($contact->id);
-            return redirect('/')->withInfo('Check your email for a verification link.');
+            return redirect('/')->withInfo('Check your email for a verification link. (give it a few minutes)');
         }
         return redirect('/unidentified')->with(['email_address' => $request->get('email_address')]);
     }

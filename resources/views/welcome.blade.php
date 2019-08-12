@@ -37,12 +37,4 @@
         </div>
         {!! $errors->first('email', '<p class="text-centere text-warning">:message</p>') !!}
     @endif
-    <hr>
-    <div style="margin-top: 5em; border: 1px solid #888; padding: 5em;">
-        Debug:<br>
-        isAuth: {{ $isAuthorized }}<br>
-        isAdmin: {{ $isAdmin }}<br>
-        Session: {{ Session::has('contactId') }}
-        Contact: @if($isAuthorized) {{ json_encode($authorizedContact) }} @endif
-    </div>
 @endsection('content')
