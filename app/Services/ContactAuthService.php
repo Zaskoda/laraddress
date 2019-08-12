@@ -4,58 +4,105 @@ namespace App\Services;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Verify;
 use App\Contact;
+use App\EmailAccount;
+use Illuminate\Http\Request;
 
 class ContactAuthService
 {
+    const SESSION_CONTACT_ID = 'contactId';
+    const SESSION_CONTACT_TOKEN_ID = 'token';
 
-    const CONTACT_ID = 'contactId';
-    const CONTACT_TOKEN = 'token';
-
-    static function isAuthorized()
+    public function __construct()
     {
-        return (\Session::has(self::CONTACT_ID));
+    }
+
+    public function isAuthorized()
+    {
+        return (\Session::has(self::SESSION_CONTACT_ID));
+    }
+
+    public function isAdmin()
+    {
+        if (\Session::has(self::SESSION_CONTACT_ID)) {
+            $id = \Session::get(self::SESSION_CONTACT_ID);
+            $contact = Contact::find($id);
+            if ($contact &&
+                ($contact
+                    ->emailAccounts
+                    ->where('email_address', config('app.admin_email'))
+                    ->count()
+                )) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function authorizeContact($contact_id)
+    {
+        \Session::put([self::SESSION_CONTACT_ID => $contact_id]);
+        \Session::save();
+    }
+
+    public function clearAuthorizedContact()
+    {
+        \Session::forget(self::SESSION_CONTACT_ID);
     }
 
     public function getAuthorizedContact()
     {
-        return Contact::find($session(self::CONTACT_ID));
+        return Contact::find(session(self::SESSION_CONTACT_ID));
     }
 
-    public function checkContactToken($token)
+    public function getFromEmail($emailAddress)
     {
-        $contact = Contact::where(CONTACT_TOKEN, $token)->first();
-        if (!empty($contact)) {
-            session([self::CONTACT_ID => $contactId]);
+        $emailAccount = EmailAccount::select('contact_id')->where('email_address', $emailAddress)->first();
+        if ($emailAccount) {
+            return Contact::where('id', $emailAccount->contact_id)->first();
+        }
+        return null;
+    }
+
+    public function createContactWithEmail($emailAddress)
+    {
+        $emailId = \DB::transaction(function () use ($emailAddress) {
+            $contact = new Contact();
+            $contact->save();
+            $email = new EmailAccount([
+                'email_address' => $emailAddress,
+                'contact_id' => $contact->id,
+            ]);
+            $email->save();
+            return (int) $email->id;
+        });
+        if ($emailId > 0) {
+            return $this->sendEmailToken($emailId);
+        }
+        return false;
+    }
+
+    public function verifyEmailToken($token)
+    {
+        $account = EmailAccount::where('verification_token',$token)->first();
+        if ($account) {
+            $account->verified = true;
+            $account->save();
+            $this->authorizeContact($account->contact->id);
             return true;
         }
         return false;
     }
 
-    public function clearAuthorizedContact()
+    public function sendEmailToken($emailId)
     {
-        session()->forget(self::CONTACT_ID);
-    }
-
-    public function createOrLoadFromEmail($email)
-    {
-        $contact = Contact::where('email', $email)->first();
-        if (!$contact) {
-            $contact = $this->createFromEmail($email);
+        $account = EmailAccount::find($emailId);
+        if ($account) {
+            $account->refreshToken();
+            $account->refresh();
+            Mail::to($account->email_address)->send(new Verify($account->verification_token));
+            return true;
         }
-        return $contact;
-    }
-
-    private function createFromEmail($email)
-    {
-        $contact = new Contact(['email' => $email]);
-        $contact->save();
-        return $contact;
-    }
-
-    public function sendToken($id, $method = 'email')
-    {
-        Mail::to($email)->send(new Verify());
-        return true;
+        return false;
     }
 
 }

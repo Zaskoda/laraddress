@@ -11,15 +11,20 @@
 |
 */
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/', 'HomeController@index');
+    Route::post('/identify', 'HomeController@identify');
+    Route::get('/verify/{token}', 'HomeController@verify');
+    Route::get('/unidentified', 'HomeController@unidentified');
+    Route::get('/logout', 'HomeController@logout');
+    Route::get('/sneak/{emailId}', 'HomeController@sneakLink');
 
-Route::get('/', 'HomeController@index');
-Route::post('/identify', 'HomeController@identify');
-Route::get('/verify', 'HomeController@verify');
+    Route::post('/create', 'HomeController@create');
 
-Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
-    Route::get('/test', 'TestController@index');
-    Route::group(['middleware' => '\App\Http\Middleware\ContactAdmin::class'], function(){
-        Route::get('/admin', 'Admin\AdminController@index');
+    Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
+        Route::get('/test', 'TestController@index');
+        Route::group(['middleware' => '\App\Http\Middleware\ContactAdmin::class'], function(){
+            Route::get('/admin', 'Admin\AdminController@index');
+        });
     });
 });
-

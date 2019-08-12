@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Contact;
+use App\EmailAccount;
 use App\SirenService;
 
 class Bootstrap extends Migration
@@ -14,19 +16,33 @@ class Bootstrap extends Migration
      */
     public function up()
     {
+        if (!config('app.admin_name') or !config('app.admin_email')) {
+            die("Configuration Error: Please configure admin name and email in your .env file before running database migrations.\n");
+        }
+
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('emails', function (Blueprint $table) {
+        Schema::create('email_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');;
             $table->bigInteger('contact_id')->index();
-            $table->string('email')->unique();
+            $table->string('email_address')->unique();
+            $table->boolean('verified')->default('false');
+            $table->string('verification_token', 100)->unique()->nullable();
             $table->timestamps();
         });
+
+        $contact = Contact::create([
+            'name' => config('app.admin_name')
+        ]);
+        $email = EmailAccount::create([
+            'email_address' => config('app.admin_email'),
+            'verified' => true,
+            'contact_id' => $contact->id,
+        ]);
 
         Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -76,7 +92,7 @@ class Bootstrap extends Migration
         Schema::dropIfExists('contacts');
         Schema::dropIfExists('emails');
         Schema::dropIfExists('addresses');
-        Schema::dropIfExists('siren_service');
+        Schema::dropIfExists('siren_services');
         Schema::dropIfExists('siren_accounts');
     }
 }

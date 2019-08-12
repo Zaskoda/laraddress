@@ -7,13 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     protected $fillable = [
-        'email',
+        'name'
     ];
 
 
-    public function socialAccount()
+    public function socialAccounts()
     {
-        return $this->hasMany('App\SocialAccount');
+        return $this->hasMany(SocialAccount::class);
+    }
+
+    public function emailAccounts()
+    {
+        return $this->hasMany(EmailAccount::class);
     }
 
 }

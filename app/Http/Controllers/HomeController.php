@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\ContactAuthService;
+use App\EmailAccount;
 use App\Http\Requests\IdentifyRequest;
+use App\Services\ContactAuthService;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -15,11 +16,52 @@ class HomeController extends Controller
 
     public function identify(IdentifyRequest $request, ContactAuthService $contactService)
     {
-        $contact = $contactService->createOrLoadFromEmail($request->get('email'));
+        $contact = $contactService->getFromEmail($request->get('email_address'));
 
-        //this should send an email with a token, but for now we'll just auth
-        session([ContactAuthService::CONTACT_ID => $contact->id]);
-
-        return view('identified', ['contact' => $contact]);
+        if ($contact) {
+            $contactService->authorizeContact($contact->id);
+            return redirect('/');
+        }
+        return redirect('/unidentified')->with(['email_address' => $request->get('email_address')]);
     }
+
+    public function unidentified(Request $request)
+    {
+        return view('unidentified', ['email' => $request->session()->get('email_address')]);
+    }
+
+    public function verify(ContactAuthService $contactService, $token)
+    {
+        if ($contactService->verifyEmailToken($token)) {
+            return redirect('/')->withSuccess('You have been verified.');
+        }
+        return redirect('/')->withError('You verification failed. Please try again.');
+    }
+
+    public function create(IdentifyRequest $request, ContactAuthService $contactService)
+    {
+        if ($contactService->createContactWithEmail($request->get('email_address'))) {
+            return redirect('/check-you-email');
+        }
+        return redirect('/')->withError('I was unable to create your new account.');
+    }
+
+    public function checkYourEmail()
+    {
+        return view('check_your_email');
+    }
+
+    public function logout(ContactAuthService $contactService)
+    {
+        $contactService->clearAuthorizedContact();
+        return redirect('/');
+    }
+
+    public function sneakLink($emailId)
+    {
+        $emailAccount = EmailAccount::find($emailId);
+        $emailAccount->refreshToken();
+        return view('email.verify')->with(['tokenlink' => url('/').'/verify/'.$emailAccount->verification_token]);
+    }
+
 }

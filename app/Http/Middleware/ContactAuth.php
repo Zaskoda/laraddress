@@ -6,9 +6,9 @@ use App\Services\ContactAuthService;
 
 class ContactAuth
 {
-    public function handle($request, $next)
+    public function handle($request, $next, ContactAuthService $service)
     {
-        if (!ContactAuthService::isAuthorized()) {
+        if ($service->isAuthorized()) {
             return redirect('/');
         }
         return $next($request);

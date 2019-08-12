@@ -13,7 +13,18 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Address Book'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Administrator Settings
+    |--------------------------------------------------------------------------
+    |
+    | This value is the email address for the owner of the application instance.
+    |
+    */
+    'admin_name' => env('ADMIN_NAME', null),
+    'admin_email' => env('ADMIN_EMAIL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -173,6 +184,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ContactAuthServiceProvider::class,
 
     ],
 

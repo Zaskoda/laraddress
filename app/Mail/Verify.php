@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\EmailAccount;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,14 +12,16 @@ class Verify extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $tokenlink = 'no token link created';
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->tokenlink = url('/').'/verify'.$token;
     }
 
     /**
@@ -28,6 +31,6 @@ class Verify extends Mailable
      */
     public function build()
     {
-        return $this->view('email.verify');
+        return $this->view('email.verify')->with(['tokenlink' => $this->tokenlink]);
     }
 }
