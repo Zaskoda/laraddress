@@ -10,6 +10,10 @@ class Contact extends Model
         'name'
     ];
 
+    public function getDisplayName()
+    {
+        return ($this->name ?: $this->emailAccounts->first()->email_address);
+    }
 
     public function socialAccounts()
     {
