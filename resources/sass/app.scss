@@ -9,14 +9,10 @@
 
 h1.header {
     text-align: center;
-    background: $gray-700;
+    background: $gray-800;
+    color: $gray-100;
     width: 100%;
     padding: 0.5em 0;
     margin-bottom: 1em;
     font-size: 1.5em;
-}
-
-b,
-strong {
-    color: $gray-100;
 }
