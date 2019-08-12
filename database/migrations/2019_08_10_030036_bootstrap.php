@@ -58,8 +58,8 @@ class Bootstrap extends Migration
 
         Schema::create('siren_services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('service_name')->index();
-            $table->string('url')->index();
+            $table->string('service_name')->unique('service_name_unique');
+            $table->string('url');
             $table->timestamps();
         });
 
