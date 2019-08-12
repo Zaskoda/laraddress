@@ -12,7 +12,15 @@ class Contact extends Model
 
     public function getDisplayName()
     {
-        return ($this->name ?: $this->emailAccounts->first()->email_address);
+        return ($this->name ?: $this->firstEmail());
+    }
+
+    public function firstEmail()
+    {
+        $account = $this->emailAccounts->first();
+        if ($account) {
+            return $account->email_address;
+        }
     }
 
     public function socialAccounts()
