@@ -21,7 +21,7 @@ class Verify extends Mailable
      */
     public function __construct($token)
     {
-        $this->tokenlink = url('/').'/verify'.$token;
+        $this->tokenlink = url('/').'/verify/'.$token;
     }
 
     /**

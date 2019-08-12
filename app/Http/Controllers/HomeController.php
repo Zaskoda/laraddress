@@ -19,8 +19,8 @@ class HomeController extends Controller
         $contact = $contactService->getFromEmail($request->get('email_address'));
 
         if ($contact) {
-            $contactService->authorizeContact($contact->id);
-            return redirect('/');
+            $contactService->sendEmailToken($contact->id);
+            return redirect('/')->withInfo('Check your email for a verification link.');
         }
         return redirect('/unidentified')->with(['email_address' => $request->get('email_address')]);
     }
@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function create(IdentifyRequest $request, ContactAuthService $contactService)
     {
         if ($contactService->createContactWithEmail($request->get('email_address'))) {
-            return redirect('/check-you-email');
+            return redirect('/')->withInfo('Check your email for a verification link.');
         }
         return redirect('/')->withError('I was unable to create your new account.');
     }
