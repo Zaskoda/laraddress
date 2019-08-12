@@ -27,6 +27,6 @@
             isAuth: {{ $isAuthorized }}<br>
             isAdmin: {{ $isAdmin }}<br>
             Session: {{ Session::has('contactId') }}
-            Contact: {{ json_encode($authorizedContact) }}
+            Contact: @if($isAuthorized) {{ json_encode($authorizedContact) }} @endif
         </div>
 @endsection('content')
