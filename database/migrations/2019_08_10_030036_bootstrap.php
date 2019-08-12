@@ -30,7 +30,7 @@ class Bootstrap extends Migration
             $table->bigIncrements('id');;
             $table->bigInteger('contact_id')->index();
             $table->string('email_address')->unique();
-            $table->boolean('verified')->default('false');
+            $table->boolean('verified')->default(false);
             $table->string('verification_token', 100)->unique()->nullable();
             $table->timestamps();
         });
