@@ -82,7 +82,7 @@ class Bootstrap extends Migration
     public function down()
     {
         Schema::dropIfExists('contacts');
-        Schema::dropIfExists('emails');
+        Schema::dropIfExists('email_accounts');
         Schema::dropIfExists('addresses');
         Schema::dropIfExists('siren_services');
         Schema::dropIfExists('siren_accounts');
