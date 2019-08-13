@@ -1,16 +1,18 @@
-Hello,
+<p>Hello,</p>
 
-You or someone using your email address attempted to access address book!
+<p>You or someone using your email address attempted to access address book!</p>
 
-To finish you login process, click this <a href="{{ $tokenlink }}">Verification Link</a>
+<p>To finish you login process, click this <a href="{{ $tokenlink }}">Verification Link</a></p>
 
-In case that link did not display correctly in your email client, you can copy and paste the following link:
+<p>In case that link did not display correctly in your email client, you can copy and paste the following link:<p>
 
-{{ $tokenlink }}
+<p>{{ $tokenlink }}</p>
 
-Once you log in (or if you request another verification link) the link in this email will no longer be valid.
+<p>Once you log in (or if you request another verification link) the link in this email will no longer be valid.</p>
 
-Thank you for keeping me up to date!
+<p>Thank you for keeping me up to date!</p>
+
+
 
 
 
