@@ -9,14 +9,12 @@ Laraddress is a federated address book.
 *  Run your own address book server, own your data
 *  Friends can login and update their address book info
 *  Share your contact details in return
-*  Contact details include
-    - name,
-    - birthday,
-    - address,
-    - email
-    - website
-    - blogs
-    - social media accounts
+*  Contact details include:
+    - Name and Birthday
+    - Addresses
+    - Email Accounts
+    - Website and Blogs
+    - Social Media Accounts
 
 ## Future Features
 
@@ -35,7 +33,8 @@ and kept up-to-date.
 ## Installtion
 
 1  Clone it to a server that supports Laravel.
-2  Setup your .env like you would with any Laravel project and supply your ADMIN_NAME and ADMIN_EMAIL values as per .env.example.
-3  Run the database migrations.
-4  Visit your site.
+2  Setup your .env including ADMIN_NAME and ADMIN_EMAIL values
+3  Run composer install
+4  Run the database migrations.
+5  Visit your site.
 

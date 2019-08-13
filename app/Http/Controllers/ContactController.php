@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\EmailAccount;
+use App\Http\Requests\ContactUpdateRequest;
 use App\Http\Requests\IdentifyRequest;
 use App\Services\ContactAuthService;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ class ContactController extends Controller
         return redirect('/unidentified')->with(['email_address' => $request->get('email_address')]);
     }
 
+    /**
+     * Account creation step
+     */
     public function unidentified(Request $request)
     {
         return view('unidentified', ['email' => $request->session()->get('email_address')]);
@@ -47,7 +51,7 @@ class ContactController extends Controller
         return redirect('/')->withError('I was unable to create your new account.');
     }
 
-    public function update(Request $request)
+    public function update(ContactUpdateRequest $request)
     {
         Contact::find($this->currentContactID)->update($request->all());
         return redirect('/')->withSuccess('Your name was updated.');

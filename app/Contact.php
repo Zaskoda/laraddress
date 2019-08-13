@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     protected $fillable = [
-        'name'
+        'nickname',
+        'formal_name',
+        'brithday'
     ];
 
     public function getDisplayName()
     {
-        return ($this->name ?: $this->firstEmail());
+        return ($this->nickname ?: ($this->formal_name ?: $this->firstEmail()));
     }
 
     public function firstEmail()

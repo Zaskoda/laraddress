@@ -1,30 +1,53 @@
 
 <div class="card col-md-6 col-lg-4">
     <p>
-        <div>
-            <a href="#editName" data-toggle="collapse" class="pull-right text-info"><i class="fa fa-pencil"></i></a>
-            <b>Name</b>: {{ $contact->name ?: 'empty' }}
-            <div class="collapse" id="editName">
 
+        <div>
+            <a href="#editFormalName" data-toggle="collapse" class="pull-right text-info"><i class="fa fa-pencil"></i></a>
+            <label><b>Formal Name</b>: {{ $contact->formal_name ?: 'empty' }} </label>
+            <div class="collapse" id="editFormalName">
                 <form class="form-inline align-bottom mb-2" method="post" action="/contact">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
                     <div class="form-group m-2">
-                        <input name="name" class="form-control form-control-sm" id="inputName" placeholder="Empty" value="{{ $contact->name }}">
+                        <input name="formal_name" class="form-control form-control-sm" placeholder="Empty" value="{{ $contact->formal_name }}">
                     </div>
                     <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
                 </form>
-
             </div>
         </div>
 
         <div>
+            <a href="#editNickame" data-toggle="collapse" class="pull-right text-info"><i class="fa fa-pencil"></i></a>
+            <b>Nickname</b>: {{ $contact->nickname ?: 'empty' }}
+            <div class="collapse" id="editNickame">
+                <form class="form-inline align-bottom mb-2" method="post" action="/contact">
+                    <input type="hidden" name="_method" value="put" />
+                    @csrf
+                    <div class="form-group m-2">
+                        <input name="nickname" class="form-control form-control-sm" placeholder="Empty" value="{{ $contact->nickname }}">
+                    </div>
+                    <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
+
+        </div>
+
+        <div>
             <a href="#editBirthday" data-toggle="collapse" class="pull-right text-info"><i class="fa fa-pencil"></i></a>
-            <b>Birthday</b>: #to-do
+            <b>Birthday</b>: {{ date('D M jS, Y', strtotime($contact->birthday)) }}
             <div class="collapse" id="editBirthday">
-                no birthday yet
+                <form class="form-inline align-bottom mb-2" method="post" action="/contact">
+                    <input type="hidden" name="_method" value="put" />
+                    @csrf
+                    <div class="form-group m-2">
+                        <input name="birthday" type="date" class="form-control form-control-sm" placeholder="Empty" value="{{ date('Y-m-d', strtotime($contact->birthday)) }}">
+                    </div>
+                    <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
+                </form>
             </div>
         </div>
+
     </p>
 
     <p>

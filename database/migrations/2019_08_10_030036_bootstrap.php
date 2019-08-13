@@ -22,7 +22,9 @@ class Bootstrap extends Migration
 
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
+            $table->string('nickname')->nullable();
+            $table->string('formal_name')->nullable();
+            $table->date('birthday')->nullable();
             $table->timestamps();
         });
 
@@ -36,7 +38,7 @@ class Bootstrap extends Migration
         });
 
         $contact = Contact::create([
-            'name' => config('app.admin_name')
+            'nickname' => config('app.admin_name')
         ]);
         $email = EmailAccount::create([
             'email_address' => config('app.admin_email'),
