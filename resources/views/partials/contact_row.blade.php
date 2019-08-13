@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm">
             <p>
-                <b>Name</b>: @if(str_len($contact->name) > 0) {{ $contact->name }} @else <span class="text-alert">none</span> @endif<br>!
+                <b>Name</b>: @if(strlen($contact->name) > 0) {{ $contact->name }} @else <span class="text-alert">none</span> @endif<br>
                 <b>Birthday</b> to do
             </p>
             </div>
