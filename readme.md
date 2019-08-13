@@ -10,13 +10,13 @@ Laraddress is a federated address book.
 *  Friends can login and update their address book info
 *  Share your contact details in return
 *  Contact details include
-    * name,
-    * birthday,
-    * address,
-    * email
-    * website
-    * blogs
-    * social media accounts
+    - name,
+    - birthday,
+    - address,
+    - email
+    - website
+    - blogs
+    - social media accounts
 
 ## Future Features
 
