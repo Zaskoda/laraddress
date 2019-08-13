@@ -100,7 +100,6 @@ class ContactAuthService
             $account->refreshToken();
             $account->refresh();
             Mail::to($account->email_address)
-                ->subject('address book verification request from ' . config('app.admin_name' .''))
                 ->send(new Verify($account->verification_token));
             return true;
         }

@@ -31,6 +31,8 @@ class Verify extends Mailable
      */
     public function build()
     {
-        return $this->view('email.verify')->with(['tokenlink' => $this->tokenlink]);
+        return $this->view('email.verify')
+            ->subject('email verification request from ' . config('app.admin_name' .''))
+            ->with(['tokenlink' => $this->tokenlink]);
     }
 }
