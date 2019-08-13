@@ -6,35 +6,23 @@
             <a href="/administraton" class="btn btn-sm btn-warning pull-right">Admin</a>
         @endif
         <h2>Welcome back, {{ $authorizedContact->getDisplayName() }}</h2>
+        <hr>
+        @include('partials.add_contact_info')
 
-        <p>Your contact info:</p>
-        <div>
-            <div><b>Name</b>: {{ $authorizedContact->name }}</div>
-            @foreach($authorizedContact->emailAccounts as $account)
-            <div><i class="fa fa-envelope"></i> {{ $account->email_address }}</div>
-            @endforeach
-        </div>
+        @include('partials.contact_card', ['contact' => $authorizedContact])
 
         @if($isAdmin)
             <hr>
             <p>Your address book:</p>
+
             @foreach (App\Contact::all() as $contact)
-            <div><a href="/">{{ $contact->getDisplayName() }}</a></div>
+                @include('partials.contact_row', ['contact' => $contact])
             @endforeach
         @endif
 
     @else
 
-        <div class="text-center">
-            <p><strong>Please identify yourself:</strong><br> Enter your email address in the form below so I can determine your identity.</p>
-            <form action="/identify" method="post" class="form-inline  justify-content-center">
-                @csrf
-                <div class="form-group">
-                    <input name="email_address" placeholder="enter your email" class="form-control">
-                </div>
-                <input type="submit" value="check in" class="btn btn-info">
-            </form>
-        </div>
-        {!! $errors->first('email', '<p class="text-centere text-warning">:message</p>') !!}
+        @include('partials.login')
+
     @endif
 @endsection('content')

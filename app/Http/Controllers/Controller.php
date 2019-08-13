@@ -13,6 +13,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $currentContactID = null;
+
     public function __construct(ContactAuthService $contactAuthService)
     {
         View::share('appName', config('app.name'));
@@ -21,7 +23,9 @@ class Controller extends BaseController
         View::share('isAuthorized', $contactAuthService->isAuthorized());
         View::share('isAdmin', $contactAuthService->isAdmin());
         if ($contactAuthService->isAuthorized()) {
-            View::share('authorizedContact', $contactAuthService->getAuthorizedContact());
+            $contact = $contactAuthService->getAuthorizedContact();
+            View::share('authorizedContact', $contact);
+            $this->currentContactID = $contact->id;
         }
     }
 }

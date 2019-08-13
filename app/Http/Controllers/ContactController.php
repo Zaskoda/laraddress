@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\EmailAccount;
 use App\Http\Requests\IdentifyRequest;
 use App\Services\ContactAuthService;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ContactController extends Controller
 {
     public function index()
     {
@@ -46,10 +47,12 @@ class HomeController extends Controller
         return redirect('/')->withError('I was unable to create your new account.');
     }
 
-    public function checkYourEmail()
+    public function update(Request $request)
     {
-        return view('check_your_email');
+        Contact::find($this->currentContactID)->update($request->all());
+        return redirect('/')->withSuccess('Your name was updated.');
     }
+
 
     public function logout(ContactAuthService $contactService)
     {

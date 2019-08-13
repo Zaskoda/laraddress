@@ -12,14 +12,16 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'HomeController@index');
-    Route::post('/identify', 'HomeController@identify');
-    Route::get('/verify/{token}', 'HomeController@verify');
-    Route::get('/unidentified', 'HomeController@unidentified');
-    Route::get('/logout', 'HomeController@logout');
-    Route::get('/sneak/{emailId}', 'HomeController@sneakLink');
+    Route::get('/', 'ContactController@index');
+    Route::post('/identify', 'ContactController@identify');
+    Route::get('/verify/{token}', 'ContactController@verify');
+    Route::get('/unidentified', 'ContactController@unidentified');
+    Route::get('/logout', 'ContactController@logout');
+    Route::get('/sneak/{emailId}', 'ContactController@sneakLink');
 
-    Route::post('/create', 'HomeController@create');
+    Route::post('/create', 'ContactController@create');
+
+    Route::put('/contact', 'ContactController@update');
 
     Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
         Route::get('/test', 'TestController@index');
