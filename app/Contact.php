@@ -9,7 +9,7 @@ class Contact extends Model
     protected $fillable = [
         'nickname',
         'formal_name',
-        'brithday'
+        'birthday'
     ];
 
     public function getDisplayName()
@@ -25,9 +25,19 @@ class Contact extends Model
         }
     }
 
-    public function socialAccounts()
+    public function phoneNumbers()
+    {
+        return $this->hasMany(PhoneNumber::class);
+    }
+
+    public function socialPostalAddresses()
     {
         return $this->hasMany(SocialAccount::class);
+    }
+
+    public function sirenAccounts()
+    {
+        return $this->hasMany(SirenAccount::class);
     }
 
     public function emailAccounts()

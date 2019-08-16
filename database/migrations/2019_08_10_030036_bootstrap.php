@@ -28,6 +28,15 @@ class Bootstrap extends Migration
             $table->timestamps();
         });
 
+        Schema::create('phone_numbers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('contact_id')->index();
+            $table->string('number', 200)->unique();
+            $table->boolean('verified')->default(false);
+            $table->string('verification_token', 100)->unique()->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('email_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');;
             $table->bigInteger('contact_id')->index();
@@ -47,7 +56,7 @@ class Bootstrap extends Migration
             'contact_id' => $contact->id,
         ]);
 
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('postal_addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('contact_id')->index();
             $table->string('line_1');

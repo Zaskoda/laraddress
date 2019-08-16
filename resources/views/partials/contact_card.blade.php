@@ -53,6 +53,10 @@
     <p>
         <a href="/address/create"  class="pull-right text-success"><i class="fa fa-plus"></i></a>
         <b>Phone Numbers</b>:<br>
+        @foreach($contact->phoneNumbers as $phone)
+            <a href="/address/delete" class="pull-right text-danger"><i class="fa fa-remove"></i></a>
+            <i class="fa fa-at"></i> {{ $phone->number }}
+        @endforeach
     </p>
 
     <p>
