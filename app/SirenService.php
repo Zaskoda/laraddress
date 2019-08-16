@@ -10,9 +10,4 @@ class SirenService extends Model
         'service_name',
         'url'
     ];
-
-    public function contact()
-    {
-        return $this->belongsTo(App\SirenAccount::class);
-    }
 }
