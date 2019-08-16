@@ -40,6 +40,7 @@ class Bootstrap extends Migration
         $contact = Contact::create([
             'nickname' => config('app.admin_name')
         ]);
+
         $email = EmailAccount::create([
             'email_address' => config('app.admin_email'),
             'verified' => true,
