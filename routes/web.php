@@ -24,7 +24,28 @@ Route::group(['middleware' => ['web']], function () {
     Route::put('/contact', 'ContactController@update');
 
     Route::group(['middleware' => '\App\Http\Middleware\ContactAuth::class'], function(){
-        Route::get('/test', 'TestController@index');
+        Route::resource(
+            'phone-number', 'PhoneNumberController'
+        )->only([
+            'store',
+            'update',
+            'destroy',
+        ]);
+        Route::resource(
+            'postal-address', 'PostalAddressController'
+        )->only([
+            'store',
+            'update',
+            'destroy',
+        ]);
+        Route::resource(
+            'email-address', 'EmailAddressController'
+        )->only([
+            'store',
+            'update',
+            'destroy',
+        ]);
+        Route::get('/test', 'ContactController@index');
         Route::group(['middleware' => '\App\Http\Middleware\ContactAdmin::class'], function(){
             Route::get('/admin', 'Admin\AdminController@index');
         });

@@ -20,7 +20,7 @@
         <div class="container">
             @include('partials.alerts')
             @if($isAuthorized)
-                <a class="btn btn-info btn-sm float-right" href="/logout">Logout</a>
+                <a class="btn btn-info btn-sm float-right ml-1" href="/logout">Logout</a>
             @endif
             @yield('content')
         </div>

@@ -2,29 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\PostalAddress;
+use App\Http\Requests\PostalAddressRequest;
 use Illuminate\Http\Request;
 
 class PostalAddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -32,31 +15,20 @@ class PostalAddressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostalAddressRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $address = new PostalAddress($request->only([
+            'label',
+            'line_1',
+            'line_2',
+            'city',
+            'state',
+            'country',
+            'zip',
+        ]));
+        $address->contact_id = $this->currentContactID;
+        $address->save();
+        return back()->withSuccess('Postal address added.');
     }
 
     /**
@@ -66,9 +38,20 @@ class PostalAddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostalAddressRequest $request, $id)
     {
-        //
+        PostalAddress::whereId($id)
+            ->where('contact_id', $this->currentContactID)
+            ->update($request->only([
+                'label',
+                'line_1',
+                'line_2',
+                'city',
+                'state',
+                'country',
+                'zip',
+            ]));
+        return back()->withSuccess('Postal address updated.');
     }
 
     /**
@@ -79,6 +62,9 @@ class PostalAddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PostalAddress::where('id', $id)
+            ->where('contact_id', $this->currentContactID)
+            ->delete();
+        return back()->withSuccess('Postal address removed.');
     }
 }

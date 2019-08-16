@@ -4,15 +4,11 @@
         me keep my address book up to date. The application is open source and is
         <a href="https://github.com/Zaskoda/laraddress">available on Github</a>.
     </p>
-    <p>
-        I will use your email address to verify your identity by sending you a
-        verification link.
-    <p>
     <div class="card card-body">
-        <p>Enter your email address in the form below so I can determine your identity.</p>
-            <form action="/identify" method="post" class="form-inline  justify-content-center">
+        <p>Enter your email address in the form below and I will send you a verification link:</p>
+            <form action="/identify" method="post" class="form-inline justify-content-center">
                 @csrf
-                <div class="form-group">
+                <div class="form-group mb-0">
                     <input name="email_address" placeholder="enter your email" class="form-control">
                 </div>
                 &nbsp;

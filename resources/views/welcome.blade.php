@@ -7,7 +7,6 @@
         @endif
         <h2>Welcome back, {{ $authorizedContact->getDisplayName() }}</h2>
         <hr>
-        @include('partials.add_contact_info')
 
         @include('partials.contact_card', ['contact' => $authorizedContact])
 

@@ -30,6 +30,11 @@ class Contact extends Model
         return $this->hasMany(PhoneNumber::class);
     }
 
+    public function postalAddresses()
+    {
+        return $this->hasMany(PostalAddress::class);
+    }
+
     public function socialPostalAddresses()
     {
         return $this->hasMany(SocialAccount::class);
