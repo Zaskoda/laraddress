@@ -59,13 +59,13 @@ class Bootstrap extends Migration
         Schema::create('postal_addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('contact_id')->index();
-            $table->string('label')->default('Address');
-            $table->string('line_1')->default('');
-            $table->string('line_2')->default('');
-            $table->string('city')->default('');
-            $table->string('state')->default('');
-            $table->string('country')->default('USA');
-            $table->string('zip')->default('');
+            $table->string('label')->default('Address')->nullable();
+            $table->string('line_1')->default('')->nullable();
+            $table->string('line_2')->default('')->nullable();
+            $table->string('city')->default('')->nullable();
+            $table->string('state')->default('')->nullable();
+            $table->string('country')->default('USA')->nullable();
+            $table->string('zip')->default('')->nullable();
             $table->boolean('primary')->default(false);
             $table->timestamps();
         });
