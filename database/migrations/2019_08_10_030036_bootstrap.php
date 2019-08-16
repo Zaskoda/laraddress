@@ -77,6 +77,16 @@ class Bootstrap extends Migration
             $table->timestamps();
         });
 
+        $twitter = SirenService::create([
+            'service_name' => 'Twitter',
+            'url' => 'https://twitter.com',
+        ]);
+
+        $facebook = SirenService::create([
+            'service_name' => 'Facebook',
+            'url' => 'https://facebook.com',
+        ]);
+
         Schema::create('siren_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('contact_id')->index();
