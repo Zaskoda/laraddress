@@ -39,7 +39,7 @@ Route::group(['middleware' => ['web']], function () {
             'destroy',
         ]);
         Route::resource(
-            'email-address', 'EmailAddressController'
+            'email-account', 'EmailAccountController'
         )->only([
             'store',
             'update',

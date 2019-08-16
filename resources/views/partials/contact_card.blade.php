@@ -181,7 +181,7 @@
                     <div>{{ $address->city }}, {{ $address->state }} {{ $address->country }}, {{ $address->zip }}</div>
             </div>
 
-            <div class="collapse mt-0" id="editPostalAddress{{ $address->id }}">
+            <div class="@if(!old('showForm') == 'editPostalAddress') collapse @endif mt-0" id="editPostalAddress{{ $address->id }}">
                 <form class="align-bottom mt-0" method="post" action="/postal-address/{{ $address->id }}">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
@@ -269,12 +269,65 @@
     </div>
 
     <div class="mt-1 mb-2">
-        <a href="/address/email-account" class="pull-right text-success"><i class="fa fa-plus"></i></a>
-        <b class="text-muted">Email</b>:<br>
+        <a href="#newEmailAccount" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+        <b class="text-muted">Email Accounts</b>:<br>
+        <div class="@if(!old('showForm') == 'newEmailAccount') collapse @endif mt-0" id="newEmailAccount">
+            <form class="align-bottom mt-0" method="post" action="/email-account">
+                @csrf
+                <input type="hidden" name="showForm" value="newEmailAccount">
+                <div class="form-group m-2">
+                    <input
+                        name="email_address"
+                        type="email"
+                        class="form-control form-control-sm mb-1"
+                        placeholder="you@some.domain"
+                        value="{{ old('email_address') }}"
+                    >
+                    {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-info m-2 btn-sm">Add <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
         @foreach($contact->emailAccounts as $account)
-            <a href="/address/delete" class="pull-right text-danger"><i class="fa fa-remove"></i></a>
-            <i class="fa fa-at"></i> {{ $account->email_address }}
+        <div class="mt-0">
+            <a href="#editEmailAccount{{ $account->id }}" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <i class="fa fa-at text-muted"></i> {{ $account->email_address }}
+
+            <div class="@if(!old('showForm') == 'editEmailAccount') collapse @endif mt-0" id="editEmailAccount{{ $account->id }}">
+
+                <form
+                    method="post"
+                    action="/email-account/{{ $account->id }}"
+                    class="form-inline pull-left mt-0 mr-1"
+                    onsubmit="return confirm('Are you sure you want to delete this email address?')"
+                >
+                    @csrf
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-remove"></i></button>
+                </form>
+
+                <form class="form-inline align-bottom mt-0"method="post" action="/email-account/{{ $account->id }}">
+                    <input type="hidden" name="_method" value="put" />
+                    @csrf
+                    <div class="form-group m-2">
+                        <input
+                            name="email_address"
+                            type="email"
+                            class="form-control form-control-sm mb-1"
+                            placeholder="you@some.domain"
+                            value="{{ old('email_address', $account->email_address) }}"
+                        >
+                        {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
+                        </div>
+                    <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
+        </div>
         @endforeach
+
+
     </div>
 
 </div>

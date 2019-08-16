@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\EmailAccount;
 use Illuminate\Http\Request;
 
-class EmailAddressController extends Controller
+class EmailAccountController extends Controller
 {
 
     /**
