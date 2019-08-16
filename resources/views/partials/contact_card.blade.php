@@ -3,9 +3,9 @@
     <div class="mt-1 mb-2">
 
         <div>
-            <a href="#editFormalName" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editFormalName" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
             <label><b class="text-muted">Formal Name</b>: {{ $contact->formal_name ?: 'empty' }} </label>
-            <div class="collapse" id="editFormalName">
+            <div class="collapse"  data-parent="#containerCard"  id="editFormalName">
                 <form class="form-inline align-bottom mb-2" method="post" action="/contact">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
@@ -18,9 +18,9 @@
         </div>
 
         <div>
-            <a href="#editNickame" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editNickame" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
             <b class="text-muted">Nickname</b>: {{ $contact->nickname ?: 'empty' }}
-            <div class="collapse" id="editNickame">
+            <div class="collapse"  data-parent="#containerCard"  id="editNickame">
                 <form class="form-inline align-bottom mb-2" method="post" action="/contact">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
@@ -32,45 +32,54 @@
             </div>
 
         </div>
-    </div>
-    <div  class="mt-1 mb-2">
+
+
+        <hr>
+
+
+
         <div>
             <div>
-                <a href="#editBirthday" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
-                <b class="text-muted">Birthday:</b><br> <i class="fa fa-birthday-cake text-muted"></i> {{ date('D M jS, Y', strtotime($contact->birthday)) }}
+                <a href="#editBirthday" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+                <b class="text-muted">Birthday:</b>
+                <div>
+                    @if($contact->birthday) <i class="fa fa-birthday-cake text-muted"></i>{{ date('D M jS, Y', strtotime($contact->birthday)) }} @endif
+                </div>
             </div>
-            <div class="collapse" id="editBirthday">
+            <div class="collapse"  data-parent="#containerCard"  id="editBirthday">
                 <form class="form-inline align-bottom mb-2" method="post" action="/contact">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
                     <div class="form-group m-2">
-                        <input name="birthday" type="date" class="form-control form-control-sm" placeholder="Empty" value="{{ date('Y-m-d', strtotime($contact->birthday)) }}">
+                        <input name="birthday" type="date" class="form-control form-control-sm" placeholder="Empty" value="@if($contact->birthday) {{ date('Y-m-d', strtotime($contact->birthday))  }} @endif">
                     </div>
                     <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
                 </form>
             </div>
         </div>
-    </div>
 
 
-    <div class="mt-1 mb-2">
-        <a href="#newPhoneNumber" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+        <hr>
+
+
+
+        <a href="#newPhoneNumber" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
         <b class="text-muted">Phone Numbers:</b>
-        <div class="collapse mt-0" id="newPhoneNumber">
+        <div class="collapse"  data-parent="#containerCard"  id="newPhoneNumber">
             <form class="form-inline align-bottom mt-0" method="post" action="/phone-number">
                 @csrf
                 <div class="form-group m-2">
                     <input name="number" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control form-control-sm" placeholder="XXX-XXX-XXXX">
                 </div>
-                <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
+                <button type="submit" class="btn btn-success m-2 btn-sm"><i class="fa fa-plus"></i></button>
             </form>
         </div>
 
         @foreach($contact->phoneNumbers as $phone)
         <div class="mt-0">
-            <a href="#editPhoneNumber{{ $phone->id }}" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editPhoneNumber{{ $phone->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
             <i class="fa fa-phone text-muted"></i> {{ $phone->number }}
-            <div class="collapse mt-0" id="editPhoneNumber{{ $phone->id }}">
+            <div class="collapse"  data-parent="#containerCard"  id="editPhoneNumber{{ $phone->id }}">
                 <form
                     method="post"
                     action="/phone-number/{{ $phone->id }}"
@@ -96,13 +105,15 @@
             </div>
         </div>
         @endforeach
-    </div>
 
-    <div class="mt-1 mb-2">
 
-        <a href="#newPostalAddress" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+        <hr>
+
+
+
+        <a href="#newPostalAddress" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
         <b class="text-muted">Postal Addresses:</b>
-        <div class="@if(!old('showForm') == 'newPostalAddress') collapse @endif mt-0" id="newPostalAddress">
+        <div class="@if(!old('showForm') == 'newPostalAddress') collapse @endif"  data-parent="#containerCard"  id="newPostalAddress">
             <form class="align-bottom mt-0" method="post" action="/postal-address">
                 @csrf
                 <input type="hidden" name="showForm" value="newPostalAddress">
@@ -165,14 +176,14 @@
                     {!! $errors->first('zip', '<div class="text-warning mb-1">:message</div>') !!}
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-info m-2 btn-sm">Add <i class="fa fa-check"></i></button>
+                    <button type="submit" class="btn btn-success m-2 btn-sm">Add <i class="fa fa-plus"></i></button>
                 </div>
             </form>
         </div>
 
         @foreach($contact->postalAddresses as $address)
         <div class="mt-0">
-            <a href="#editPostalAddress{{ $address->id }}" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editPostalAddress{{ $address->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
 
             <div class="mb-1">
                     <div><i class="fa fa-address-card text-muted"></i> {{ $address->label }}</div>
@@ -181,7 +192,7 @@
                     <div>{{ $address->city }}, {{ $address->state }} {{ $address->country }}, {{ $address->zip }}</div>
             </div>
 
-            <div class="@if(!old('showForm') == 'editPostalAddress') collapse @endif mt-0" id="editPostalAddress{{ $address->id }}">
+            <div class="@if(!old('showForm') == 'editPostalAddress') collapse @endif"  data-parent="#containerCard"  id="editPostalAddress{{ $address->id }}">
                 <form class="align-bottom mt-0" method="post" action="/postal-address/{{ $address->id }}">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
@@ -266,41 +277,43 @@
         </div>
         @endforeach
 
-    </div>
 
-    <div class="mt-1 mb-2">
-        <a href="#newEmailAccount" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+        <hr>
+
+
+
+        <a href="#newEmailAccount" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
         <b class="text-muted">Email Accounts</b>:<br>
-        <div class="@if(!old('showForm') == 'newEmailAccount') collapse @endif mt-0" id="newEmailAccount">
-            <form class="align-bottom mt-0" method="post" action="/email-account">
+        <div class="@if(!old('showForm') == 'newEmailAccount') collapse @endif"  data-parent="#containerCard"  id="newEmailAccount">
+            <form class="form-inline align-bottom m-2" method="post" action="/email-account">
                 @csrf
                 <input type="hidden" name="showForm" value="newEmailAccount">
                 <div class="form-group m-2">
                     <input
                         name="email_address"
                         type="email"
-                        class="form-control form-control-sm mb-1"
+                        class="form-control form-control-sm"
                         placeholder="you@some.domain"
                         value="{{ old('email_address') }}"
                     >
                     {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-info m-2 btn-sm">Add <i class="fa fa-check"></i></button>
+                    <button type="submit" class="btn btn-success ml-2 btn-sm">Add <i class="fa fa-plus"></i></button>
                 </div>
             </form>
         </div>
         @foreach($contact->emailAccounts as $account)
         <div class="mt-0">
-            <a href="#editEmailAccount{{ $account->id }}" data-toggle="collapse"  data-parent="#containerCard" class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editEmailAccount{{ $account->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
             <i class="fa fa-at text-muted"></i> {{ $account->email_address }}
 
-            <div class="@if(!old('showForm') == 'editEmailAccount') collapse @endif mt-0" id="editEmailAccount{{ $account->id }}">
+            <div class="@if(!old('showForm') == 'editEmailAccount') collapse @endif"  data-parent="#containerCard"  id="editEmailAccount{{ $account->id }}">
 
                 <form
                     method="post"
                     action="/email-account/{{ $account->id }}"
-                    class="form-inline pull-left mt-0 mr-1"
+                    class="form-inline pull-left m-0"
                     onsubmit="return confirm('Are you sure you want to delete this email address?')"
                 >
                     @csrf
@@ -308,14 +321,14 @@
                     <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-remove"></i></button>
                 </form>
 
-                <form class="form-inline align-bottom mt-0"method="post" action="/email-account/{{ $account->id }}">
+                <form class="form-inline align-bottom m-0"method="post" action="/email-account/{{ $account->id }}">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
                     <div class="form-group m-2">
                         <input
                             name="email_address"
                             type="email"
-                            class="form-control form-control-sm mb-1"
+                            class="form-control form-control-sm"
                             placeholder="you@some.domain"
                             value="{{ old('email_address', $account->email_address) }}"
                         >

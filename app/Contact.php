@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
@@ -23,6 +24,11 @@ class Contact extends Model
         if ($account) {
             return $account->email_address;
         }
+    }
+
+    public function getAge()
+    {
+        return Carbon::parse($this->birthday)->age;
     }
 
     public function phoneNumbers()
