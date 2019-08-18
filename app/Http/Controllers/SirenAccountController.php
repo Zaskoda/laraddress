@@ -24,7 +24,7 @@ class SirenAccountController extends Controller
         if ($account->save()) {
             return back()->withSuccess('Siren account added.');
         }
-        return back()->withError('Problem adding account.');
+        return back()->withError('Problem adding siren account.');
     }
 
     /**
@@ -62,7 +62,7 @@ class SirenAccountController extends Controller
             ->delete()) {
             return back()->withSuccess('Siren account removed.');
         } else {
-            return back()->withError('Problem removing your phone number.');
+            return back()->withError('Problem removing your siren account.');
         }
     }
 }

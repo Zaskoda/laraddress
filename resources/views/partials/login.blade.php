@@ -16,7 +16,7 @@
             </form>
             {!! $errors->first('email_address', '<p class="text-centere text-warning">:message</p>') !!}
             <hr>
-            <p class="text-info"><i class="fa fa-exclamation-circle"></i> Emails can sometimes take a few minutes to arrive. Resubmitting this form will invalidate any previously sent verification links.</p>
+            <p class="text-info"><i class="fa fa-fw fa-exclamation-circle"></i> Emails can sometimes take a few minutes to arrive. Resubmitting this form will invalidate any previously sent verification links.</p>
         </div>
     </div>
 </div>

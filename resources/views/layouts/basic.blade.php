@@ -15,12 +15,16 @@
     </head>
     <body>
         <h1 class="header">
-            {{ $adminName }}'s Address Book [alpha]
+            {{ $adminName }}'s Address Book [beta]
         </h1>
         <div class="container">
             @include('partials.alerts')
             @if($isAuthorized)
-                <a class="btn btn-info btn-sm float-right ml-1" href="/logout">Logout</a>
+                <a class="btn btn-info btn-sm float-right m-1" href="/logout">Logout</a>
+                @if($isAdmin)
+                    <a href="/admin" class="btn btn-sm btn-warning pull-right m-1">Admin</a>
+                    <a href="/" class="btn btn-sm btn-light pull-right m-1">Home</a>
+                @endif
             @endif
             @yield('content')
         </div>

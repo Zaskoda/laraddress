@@ -2,23 +2,16 @@
 @section('content')
 
     @if($isAuthorized)
-        @if($isAdmin)
-            <a href="/administraton" class="btn btn-sm btn-warning pull-right">Admin</a>
-        @endif
         <h2>Welcome back, {{ $authorizedContact->getDisplayName() }}</h2>
         <hr>
-
-        @include('partials.contact_card', ['contact' => $authorizedContact])
-
-        @if($isAdmin)
-            <hr>
-            <p>Your address book:</p>
-
-            @foreach (App\Contact::all() as $contact)
-                @include('partials.contact_row', ['contact' => $contact])
-            @endforeach
-        @endif
-
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 col-lg-4 card">
+                @include('partials.contact_card', ['contact' => $authorizedContact])
+            </div>
+            <div class="col-md-6 col-lg-4 card">
+                @include('partials.admin_card', ['contact' => $adminContact])
+            </div>
+        </div>
     @else
 
         @include('partials.login')

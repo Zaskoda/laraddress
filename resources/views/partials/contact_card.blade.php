@@ -1,9 +1,9 @@
 
-<div class="card col-md-6 col-lg-4" id="containerCard">
+<div class="" id="containerCard">
     <div class="mt-1 mb-2">
+        <h2>Your Info</h2>
 
-    @include('partials.card_form_formal_name')
-
+        @include('partials.card_form_formal_name')
         @include('partials.card_form_nickname')
 
         <hr>

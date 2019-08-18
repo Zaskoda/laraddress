@@ -1,4 +1,4 @@
-<a href="#newEmailAccount" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+<a href="#newEmailAccount" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-fw fa-plus"></i></a>
         <b class="text-muted">Email Accounts</b>:<br>
         <div class="@if(!old('showForm') == 'newEmailAccount') collapse @endif"  data-parent="#containerCard"  id="newEmailAccount">
             <form class="form-inline align-bottom m-2" method="post" action="/email-account">
@@ -15,14 +15,14 @@
                     {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-success ml-2 btn-sm">Add <i class="fa fa-plus"></i></button>
+                    <button type="submit" class="btn btn-success ml-2 btn-sm">Add <i class="fa fa-fw fa-plus"></i></button>
                 </div>
             </form>
         </div>
         @foreach($contact->emailAccounts as $account)
         <div class="mt-0">
             <a href="#editEmailAccount{{ $account->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
-            <i class="fa fa-at text-muted"></i> {{ $account->email_address }}
+            <i class="fa fa-fw fa-at text-muted"></i> {{ $account->email_address }}
 
             <div class="@if(!old('showForm') == 'editEmailAccount') collapse @endif"  data-parent="#containerCard"  id="editEmailAccount{{ $account->id }}">
 
@@ -34,7 +34,7 @@
                 >
                     @csrf
                     <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-remove"></i></button>
+                    <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-fw fa-remove"></i></button>
                 </form>
 
                 <form class="form-inline align-bottom m-0"method="post" action="/email-account/{{ $account->id }}">
@@ -50,7 +50,7 @@
                         >
                         {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
                         </div>
-                    <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-check"></i></button>
+                    <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-fw fa-check"></i></button>
                 </form>
             </div>
         </div>

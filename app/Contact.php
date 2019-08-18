@@ -26,6 +26,11 @@ class Contact extends Model
         }
     }
 
+    public function isAdmin()
+    {
+        return $this->emailAccounts()->where('email_address', config('app.admin_email'))->exists();
+    }
+
     public function getAge()
     {
         return Carbon::parse($this->birthday)->age;

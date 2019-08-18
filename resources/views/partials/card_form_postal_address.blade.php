@@ -1,4 +1,4 @@
-<a href="#newPostalAddress" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-plus"></i></a>
+<a href="#newPostalAddress" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-fw fa-plus"></i></a>
         <b class="text-muted">Postal Addresses:</b>
         <div class="@if(!old('showForm') == 'newPostalAddress') collapse @endif"  data-parent="#containerCard"  id="newPostalAddress">
             <form class="align-bottom mt-0" method="post" action="/postal-address">
@@ -63,17 +63,17 @@
                     {!! $errors->first('zip', '<div class="text-warning mb-1">:message</div>') !!}
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-success m-2 btn-sm">Add <i class="fa fa-plus"></i></button>
+                    <button type="submit" class="btn btn-success m-2 btn-sm">Add <i class="fa fa-fw fa-plus"></i></button>
                 </div>
             </form>
         </div>
 
         @foreach($contact->postalAddresses as $address)
         <div class="mt-0">
-            <a href="#editPostalAddress{{ $address->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
+            <a href="#editPostalAddress{{ $address->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-fw fa-pencil"></i></a>
 
             <div class="mb-1">
-                    <div><i class="fa fa-address-card text-muted"></i> {{ $address->label }}</div>
+                    <div><i class="fa fa-fw fa-address-card text-muted"></i> {{ $address->label }}</div>
                     <div>{{ $address->line_1 }}</div>
                     <div>{{ $address->line_2 }}</div>
                     <div>{{ $address->city }}, {{ $address->state }} {{ $address->country }}, {{ $address->zip }}</div>
@@ -147,14 +147,14 @@
                                 {!! $errors->first('zip', '<div class="text-warning mb-1">:message</div>') !!}
                             </div>
                             <div class="">
-                                <button type="submit" class="btn pull-right btn-info m-2 btn-sm">Update <i class="fa fa-check"></i></button>
+                                <button type="submit" class="btn pull-right btn-info m-2 btn-sm">Update <i class="fa fa-fw fa-check"></i></button>
                             </div>
                         </form>
 
                         <form method="post" action="/postal-address/{{ $address->id }}" class="form-inline pull-left mt-0 mr-1">
                             @csrf
                             <input type="hidden" name="_method" value="delete" />
-                            <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-remove"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger m-2"><i class="fa fa-fw fa-remove"></i></button>
                         </form>
 
 

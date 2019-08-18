@@ -25,14 +25,8 @@ class ContactAuthService
     {
         if (\Session::has(self::SESSION_CONTACT_ID)) {
             $id = \Session::get(self::SESSION_CONTACT_ID);
-            $contact = Contact::find($id);
-            if ($contact &&
-                ($contact
-                    ->emailAccounts
-                    ->where('email_address', config('app.admin_email'))
-                    ->count()
-                )) {
-                return true;
+            if ($contact = Contact::find($id)) {
+                return $contact->isAdmin();
             }
         }
         return false;
@@ -40,7 +34,7 @@ class ContactAuthService
 
     public function authorizeContact($contact_id)
     {
-        \Session::put([self::SESSION_CONTACT_ID => $contact_id]);
+        \Session::put([self::SESSION_CONTACT_ID => (int) $contact_id]);
         \Session::save();
     }
 
@@ -52,6 +46,11 @@ class ContactAuthService
     public function getAuthorizedContact()
     {
         return Contact::find(session(self::SESSION_CONTACT_ID));
+    }
+
+    public function getAdminContact()
+    {
+        return $this->getFromEmail(config('app.admin_email'));
     }
 
     public function getFromEmail($emailAddress)

@@ -28,6 +28,8 @@ class Controller extends BaseController
         if ($contactAuthService->isAuthorized()) {
             $contact = $contactAuthService->getAuthorizedContact();
             View::share('authorizedContact', $contact);
+            $admin = $contactAuthService->getAdminContact();
+            View::share('adminContact', $admin);
             $this->currentContactID = $contact->id;
         }
     }

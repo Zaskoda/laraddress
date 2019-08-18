@@ -4,13 +4,20 @@ namespace App\Http\Middleware;
 
 use App\Services\ContactAuthService;
 
-class ContactAuth
+class ContactAdmin
 {
+    public $service = null;
+
+    public function __construct(ContactAuthService $service)
+    {
+        $this->service = $service;
+    }
+
     public function handle($request, $next)
     {
-        if (!ContactAuthService::isAdmin()) {
-            return redirect('/');
+        if ($this->service->isAdmin()) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/');
     }
 }
