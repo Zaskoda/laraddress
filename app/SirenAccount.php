@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SirenService extends Model
+class SirenAccount extends Model
 {
     protected $fillable = [
-        'contact_id'
+        'account_name',
+        'contact_id',
+        'platform_id',
+        'profile_url',
     ];
 
     public function contact()
@@ -17,6 +20,6 @@ class SirenService extends Model
 
     public function platform()
     {
-        return $this->hasOne('App\SocialPlatform');
+        return $this->belongsTo('App\SirenPlatform');
     }
 }

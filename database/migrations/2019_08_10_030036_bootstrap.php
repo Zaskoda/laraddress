@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Contact;
 use App\EmailAccount;
-use App\SirenService;
+use App\SirenPlatform;
 
 class Bootstrap extends Migration
 {
@@ -70,28 +70,56 @@ class Bootstrap extends Migration
             $table->timestamps();
         });
 
-        Schema::create('siren_services', function (Blueprint $table) {
+        Schema::create('siren_platforms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('service_name', 200)->default('');
-            $table->string('url')->default('');
+            $table->string('platform_name', 200)->unique();
+            $table->string('url')->nullable();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
 
-        $twitter = SirenService::create([
-            'service_name' => 'Twitter',
+        $twitter = SirenPlatform::create([
+            'platform_name' => 'Twitter',
             'url' => 'https://twitter.com',
+            'icon' => 'twitter',
         ]);
 
-        $facebook = SirenService::create([
-            'service_name' => 'Facebook',
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Facebook',
             'url' => 'https://facebook.com',
+            'icon' => 'facebook',
+        ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Instagram',
+            'url' => 'https://instagram.com',
+            'icon' => 'instagram',
+        ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Signal',
+            'url' => 'https://signal.com',
+            'icon' => 'signal',
+        ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Telegram',
+            'url' => 'https://telegram.com',
+            'icon' => 'telegram',
+        ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Whatsapp',
+            'url' => 'https://whatsapp.com',
+            'icon' => 'whatsapp'
         ]);
 
         Schema::create('siren_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('account_name')->nullable();
             $table->bigInteger('contact_id')->index();
-            $table->string('account_name')->index();
             $table->bigInteger('platform_id')->index();
+            $table->string('profile_url')->nullable();
             $table->timestamps();
         });
     }

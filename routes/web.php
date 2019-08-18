@@ -45,6 +45,13 @@ Route::group(['middleware' => ['web']], function () {
             'update',
             'destroy',
         ]);
+        Route::resource(
+            'siren-account', 'SirenAccountController'
+        )->only([
+            'store',
+            'update',
+            'destroy',
+        ]);
         Route::get('/test', 'ContactController@index');
         Route::group(['middleware' => '\App\Http\Middleware\ContactAdmin::class'], function(){
             Route::get('/admin', 'Admin\AdminController@index');

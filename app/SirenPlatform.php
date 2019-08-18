@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SirenService extends Model
+class SirenPlatform extends Model
 {
     protected $fillable = [
-        'service_name',
+        'platform_name',
+        'icon',
         'url'
     ];
 }

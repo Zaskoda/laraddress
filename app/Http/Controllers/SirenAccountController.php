@@ -2,61 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\SirenAccount;
+use App\Http\Requests\SirenAccountRequest;
 
 class SirenAccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SirenAccountRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $account = new SirenAccount($request->only([
+            'account_name',
+            'platform_id',
+            'profile_url',
+        ]));
+        $account->contact_id = $this->currentContactID;
+        if ($account->save()) {
+            return back()->withSuccess('Siren account added.');
+        }
+        return back()->withError('Problem adding account.');
     }
 
     /**
@@ -66,9 +34,19 @@ class SirenAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SirenAccountRequest $request, $id)
     {
-        //
+        if (SirenAccount::whereId($id)
+            ->where('contact_id', $this->currentContactID)
+            ->update($request->only([
+                'account_name',
+                'platform_id',
+                'profile_url',
+            ]))) {
+            return back()->withSuccess('Siren account updated.');
+        } else {
+            return back()->withError('Error updating siren account.');
+        }
     }
 
     /**
@@ -79,6 +57,12 @@ class SirenAccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (SirenAccount::where('id', $id)
+            ->where('contact_id', $this->currentContactID)
+            ->delete()) {
+            return back()->withSuccess('Siren account removed.');
+        } else {
+            return back()->withError('Problem removing your phone number.');
+        }
     }
 }

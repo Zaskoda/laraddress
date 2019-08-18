@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\View;
 use App\Services\ContactAuthService;
+use App\SirenPlatform;
 
 class Controller extends BaseController
 {
@@ -22,6 +23,8 @@ class Controller extends BaseController
         View::share('adminEmail', config('app.admin_email'));
         View::share('isAuthorized', $contactAuthService->isAuthorized());
         View::share('isAdmin', $contactAuthService->isAdmin());
+        View::share('sirenPlatforms', SirenPlatform::all());
+
         if ($contactAuthService->isAuthorized()) {
             $contact = $contactAuthService->getAuthorizedContact();
             View::share('authorizedContact', $contact);
