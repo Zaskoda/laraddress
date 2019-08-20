@@ -9,8 +9,8 @@
         <hr>
 
         @include('partials.row_birthday')
-
         <hr>
+
 
         @include('partials.row_phone_number')
 

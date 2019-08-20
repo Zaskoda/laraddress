@@ -79,40 +79,79 @@ class Bootstrap extends Migration
         });
 
         $twitter = SirenPlatform::create([
-            'platform_name' => 'Twitter',
-            'url' => 'https://twitter.com',
-            'icon' => 'twitter',
+            'platform_name' => 'Personal Homepage',
+            'url' => '',
+            'icon' => 'home',
+        ]);
+
+        $twitter = SirenPlatform::create([
+            'platform_name' => 'Professional Website',
+            'url' => '',
+            'icon' => 'globe',
+        ]);
+
+        $twitter = SirenPlatform::create([
+            'platform_name' => 'Blog',
+            'url' => '',
+            'icon' => 'rss',
+        ]);
+
+        $twitter = SirenPlatform::create([
+            'platform_name' => 'Podcast',
+            'url' => '',
+            'icon' => 'podcast',
         ]);
 
         $facebook = SirenPlatform::create([
             'platform_name' => 'Facebook',
-            'url' => 'https://facebook.com',
+            'url' => 'https://www.facebook.com',
             'icon' => 'facebook',
         ]);
 
         $facebook = SirenPlatform::create([
             'platform_name' => 'Instagram',
-            'url' => 'https://instagram.com',
+            'url' => 'https://www.instagram.com',
             'icon' => 'instagram',
         ]);
 
         $facebook = SirenPlatform::create([
-            'platform_name' => 'Signal',
-            'url' => 'https://signal.com',
-            'icon' => 'signal',
+            'platform_name' => 'Medium',
+            'url' => 'https://medium.com',
+            'icon' => 'medium',
         ]);
 
         $facebook = SirenPlatform::create([
-            'platform_name' => 'Telegram',
-            'url' => 'https://telegram.com',
-            'icon' => 'telegram',
+            'platform_name' => 'Twitch',
+            'url' => 'https://www.twitch.com',
+            'icon' => 'twitch',
         ]);
 
         $facebook = SirenPlatform::create([
-            'platform_name' => 'Whatsapp',
-            'url' => 'https://whatsapp.com',
-            'icon' => 'whatsapp'
+            'platform_name' => 'YouTube',
+            'url' => 'https://www.youtube.com',
+            'icon' => 'youtube',
         ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'Reddit',
+            'url' => 'https://www.reddit.com',
+            'icon' => 'reddit',
+        ]);
+
+        $facebook = SirenPlatform::create([
+            'platform_name' => 'LinkedIn',
+            'url' => 'https://www.linkedin.com',
+            'icon' => 'linkedin',
+        ]);
+
+
+        $twitter = SirenPlatform::create([
+            'platform_name' => 'Other',
+            'url' => '',
+            'icon' => '',
+        ]);
+
+
 
         Schema::create('siren_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');

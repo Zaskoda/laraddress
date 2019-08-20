@@ -5,7 +5,7 @@
             <form class="form-inline align-bottom mt-0" method="post" action="/phone-number">
                 @csrf
                 <div class="form-group m-2">
-                    <input name="number" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control form-control-sm" placeholder="XXX-XXX-XXXX">
+                    <input name="number" type="tel" class="form-control form-control-sm" placeholder="XXX-XXX-XXXX">
                 </div>
                 <button type="submit" class="btn btn-success m-2 btn-sm"><i class="fa fa-fw fa-plus"></i></button>
             </form>
@@ -34,7 +34,7 @@
                     <input type="hidden" name="_method" value="put" />
                     @csrf
                     <div class="form-group m-2">
-                        <input name="number" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control form-control-sm" value="{{ $phone->number }}">
+                        <input name="number" type="tel" class="form-control form-control-sm" value="{{ $phone->number }}">
                     </div>
                     <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-fw fa-check"></i></button>
                 </form>

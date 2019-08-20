@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PhoneNumberRequest;
 use App\PhoneNumber;
 
 class PhoneNumberController extends Controller
@@ -13,7 +13,7 @@ class PhoneNumberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhoneNumberRequest $request)
     {
         $number = new PhoneNumber($request->only(['number']));
         $number->contact_id = $this->currentContactID;
@@ -28,7 +28,7 @@ class PhoneNumberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PhoneNumberRequest $request, $id)
     {
         PhoneNumber::whereId($id)
             ->where('contact_id', $this->currentContactID)

@@ -53,7 +53,11 @@ class ContactController extends Controller
 
     public function update(ContactUpdateRequest $request)
     {
-        $contact = Contact::find($this->currentContactID)->update($request->all());
+        $contact = Contact::find($this->currentContactID)->update($request->only([
+            'nickname',
+            'formal_name',
+            'birthday'
+        ]));
         return redirect('/')->withSuccess('Your contact information updated.');
     }
 

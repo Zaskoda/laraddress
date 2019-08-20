@@ -51,9 +51,9 @@ be defined by tags)
 
 ## Installtion
 
-1  Clone it to a server that supports Laravel.
-2  Setup your .env including ADMIN_NAME and ADMIN_EMAIL values
-3  Run composer install
-4  Run the database migrations.
-5  Visit your site.
+1)  Clone it to a server that supports Laravel.
+2)  Setup your .env including ADMIN_NAME and ADMIN_EMAIL values
+3)  Run composer install
+4)  Run the database migrations.
+5)  Visit your site.
 

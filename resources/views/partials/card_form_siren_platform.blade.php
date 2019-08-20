@@ -22,7 +22,7 @@
                 name="account_name"
                 type=""
                 class="form-control form-control-sm mb-1"
-                placeholder="whoeveryouare"
+                placeholder="link/account name"
                 value="{{ old('account_name') }}"
             >
             {!! $errors->first('account_name', '<div class="text-warning mb-1">:message</div>') !!}
