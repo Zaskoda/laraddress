@@ -46,6 +46,7 @@ be defined by tags)
 
 *  Show a google map of where all of your friends live.
 *  See a list of upcoming birthdays.
+*  Most entries should have an optional "primary" flag (listed first).
 *  View a news feed of your friend's social media postings.
 *  Merge accounts, in case you accidently create 2
 
