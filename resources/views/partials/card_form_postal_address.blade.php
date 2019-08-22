@@ -1,6 +1,6 @@
 <a href="#newPostalAddress" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-fw fa-plus"></i></a>
         <b class="text-muted">Postal Addresses:</b>
-        <div class="@if(!old('showForm') == 'newPostalAddress') collapse @endif"  data-parent="#containerCard"  id="newPostalAddress">
+        <div class="@if(old('showForm') == 'newPostalAddress') show @endif collapse"  data-parent="#containerCard"  id="newPostalAddress">
             <form class="align-bottom mt-0" method="post" action="/postal-address">
                 @csrf
                 <input type="hidden" name="showForm" value="newPostalAddress">
@@ -68,6 +68,8 @@
             </form>
         </div>
 
+        <p>Showform: {{ old('showForm') }}<p>
+
         @foreach($contact->postalAddresses as $address)
         <div class="mt-0">
             <a href="#editPostalAddress{{ $address->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-fw fa-pencil"></i></a>
@@ -78,8 +80,7 @@
                     <div>{{ $address->line_2 }}</div>
                     <div>{{ $address->city }}, {{ $address->state }} {{ $address->country }}, {{ $address->zip }}</div>
             </div>
-
-            <div class="@if(!old('showForm') == 'editPostalAddress'.$address->id) collapse @endif"  data-parent="#containerCard"  id="editPostalAddress{{ $address->id }}">
+            <div class="@if(old('showForm') == 'editPostalAddress'.$address->id) show @endif collapse"  data-parent="#containerCard"  id="editPostalAddress{{ $address->id }}">
                 <form class="align-bottom mt-0" method="post" action="/postal-address/{{ $address->id }}">
                     <input type="hidden" name="_method" value="put" />
                     @csrf

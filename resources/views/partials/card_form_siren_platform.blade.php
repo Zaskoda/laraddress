@@ -1,6 +1,6 @@
 <a href="#newSirenAccount" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-success"><i class="fa fa-fw fa-plus"></i></a>
 <b class="text-muted">Websites and <a target="_blank" href="https://en.wikipedia.org/wiki/Who_Owns_the_Future%3F">Siren</a> Accounts:</b>
-<div class="@if(!old('showForm') == 'newSirenAccount') collapse @endif"  data-parent="#containerCard"  id="newSirenAccount">
+<div class="@if(old('showForm') == 'newSirenAccount') show @endif collapse"  data-parent="#containerCard"  id="newSirenAccount">
     <form class="align-bottom mt-0" method="post" action="/siren-account">
         @csrf
         <input type="hidden" name="showForm" value="newSirenAccount">
@@ -51,7 +51,7 @@
         <a href="{{ $account->profile_url }}">{{ $account->account_name }}</a>
     </div>
 
-    <div class="@if(!old('showForm') == 'editSirenAccount'.$account->id) collapse @endif"  data-parent="#containerCard"  id="editSirenAccount{{ $account->id }}">
+    <div class="@if(old('showForm') == 'editSirenAccount'.$account->id) show @endif collapse"  data-parent="#containerCard"  id="editSirenAccount{{ $account->id }}">
         <form class="align-bottom mt-0" method="post" action="/siren-account/{{ $account->id }}">
             <input type="hidden" name="_method" value="put" />
             @csrf

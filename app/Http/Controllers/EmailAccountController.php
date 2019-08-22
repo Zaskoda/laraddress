@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\EmailAccount;
-use Illuminate\Http\Request;
 use App\Http\Requests\EmailAccountRequest;
 
 class EmailAccountController extends Controller
@@ -21,8 +20,11 @@ class EmailAccountController extends Controller
             'email_address'
         ]));
         $address->contact_id = $this->currentContactID;
-        $address->save();
-        return back()->withSuccess('Email address added.');
+        if ($address->save()) {
+            return back()->withSuccess('Email address added.');
+        } {
+            return back()->withError('Problem adding your email address.');
+        }
     }
 
     /**
@@ -34,12 +36,16 @@ class EmailAccountController extends Controller
      */
     public function update(EmailAccountRequest $request, $id)
     {
-        EmailAccount::whereId($id)
+        if (EmailAccount::whereId($id)
             ->where('contact_id', $this->currentContactID)
             ->update($request->only([
                 'email_address'
-            ]));
-        return back()->withSuccess('Email address updated.');
+            ]))
+        ) {
+            return back()->withSuccess('Email address updated.');
+        } else {
+            return back()->withError('Problem updating your email address.');
+        }
     }
 
     /**
@@ -50,9 +56,13 @@ class EmailAccountController extends Controller
      */
     public function destroy($id)
     {
-        EmailAccount::where('id', $id)
+        if (EmailAccount::where('id', $id)
             ->where('contact_id', $this->currentContactID)
-            ->delete();
-        return back()->withSuccess('Email address removed.');
+            ->delete()
+        ) {
+            return back()->withSuccess('Email address removed.');
+        } else {
+            return back()->withError('Problem removing email address.');
+        }
     }
 }

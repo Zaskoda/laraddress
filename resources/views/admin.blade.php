@@ -6,11 +6,11 @@
     <p>Your address book:</p>
     @if($isAdmin)
     <div class="card">
-        <div class="container mt-1 mb-1">
         @foreach (App\Contact::all() as $contact)
+        <div class="container mt-1 mb-1">
             @include('partials.contact_row', ['contact' => $contact])
-        @endforeach
         </div>
+        @endforeach
     </div>
     @endif
 
