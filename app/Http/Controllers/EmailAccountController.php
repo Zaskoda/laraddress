@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EmailAccount;
 use Illuminate\Http\Request;
+use App\Http\Requests\EmailAccountRequest;
 
 class EmailAccountController extends Controller
 {
@@ -14,7 +15,7 @@ class EmailAccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmailAccountRequest $request)
     {
         $address = new EmailAccount($request->only([
             'email_address'
@@ -31,7 +32,7 @@ class EmailAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmailAccountRequest $request, $id)
     {
         EmailAccount::whereId($id)
             ->where('contact_id', $this->currentContactID)

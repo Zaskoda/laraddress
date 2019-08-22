@@ -79,7 +79,7 @@
                     <div>{{ $address->city }}, {{ $address->state }} {{ $address->country }}, {{ $address->zip }}</div>
             </div>
 
-            <div class="@if(!old('showForm') == 'editPostalAddress') collapse @endif"  data-parent="#containerCard"  id="editPostalAddress{{ $address->id }}">
+            <div class="@if(!old('showForm') == 'editPostalAddress'.$address->id) collapse @endif"  data-parent="#containerCard"  id="editPostalAddress{{ $address->id }}">
                 <form class="align-bottom mt-0" method="post" action="/postal-address/{{ $address->id }}">
                     <input type="hidden" name="_method" value="put" />
                     @csrf
@@ -87,7 +87,7 @@
 
                         <form class="align-bottom mt-0" method="post" action="/postal-address">
                             @csrf
-                            <input type="hidden" name="showForm" value="editPostalAddress">
+                            <input type="hidden" name="showForm" value="editPostalAddress{{ $address->id }}">
                             <div class="form-group m-2">
                                 <input
                                     name="label"

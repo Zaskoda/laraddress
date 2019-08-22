@@ -24,7 +24,7 @@
             <a href="#editEmailAccount{{ $account->id }}" data-toggle="collapse"  class="pull-right pl-1 pr-1 text-info"><i class="fa fa-pencil"></i></a>
             <i class="fa fa-fw fa-at text-muted"></i> {{ $account->email_address }}
 
-            <div class="@if(!old('showForm') == 'editEmailAccount') collapse @endif"  data-parent="#containerCard"  id="editEmailAccount{{ $account->id }}">
+            <div class="@if(!old('showForm') == 'editEmailAccount'.$account->id) collapse @endif"  data-parent="#containerCard"  id="editEmailAccount{{ $account->id }}">
 
                 <form
                     method="post"
@@ -39,6 +39,7 @@
 
                 <form class="form-inline align-bottom m-0"method="post" action="/email-account/{{ $account->id }}">
                     <input type="hidden" name="_method" value="put" />
+                    <input type="hidden" name="showForm" value="editEmailAccount{{ $account->id }}">
                     @csrf
                     <div class="form-group m-2">
                         <input
@@ -48,10 +49,10 @@
                             placeholder="you@some.domain"
                             value="{{ old('email_address', $account->email_address) }}"
                         >
-                        {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
-                        </div>
+                    </div>
                     <button type="submit" class="btn btn-info m-2 btn-sm"><i class="fa fa-fw fa-check"></i></button>
                 </form>
+                {!! $errors->first('email_address', '<div class="text-warning mb-1">:message</div>') !!}
             </div>
         </div>
         @endforeach

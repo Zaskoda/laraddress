@@ -51,7 +51,7 @@
         <a href="{{ $account->profile_url }}">{{ $account->account_name }}</a>
     </div>
 
-    <div class="@if(!old('showForm') == 'editSirenAccount') collapse @endif"  data-parent="#containerCard"  id="editSirenAccount{{ $account->id }}">
+    <div class="@if(!old('showForm') == 'editSirenAccount'.$account->id) collapse @endif"  data-parent="#containerCard"  id="editSirenAccount{{ $account->id }}">
         <form class="align-bottom mt-0" method="post" action="/siren-account/{{ $account->id }}">
             <input type="hidden" name="_method" value="put" />
             @csrf
@@ -59,7 +59,7 @@
 
                 <form class="align-bottom mt-0" method="post" action="/siren-account">
                     @csrf
-                    <input type="hidden" name="showForm" value="editSirenAccount">
+                    <input type="hidden" name="showForm" value="editSirenAccount{{ $account->id }}">
                     <div class="form-group m-2">
                         <select
                             name="platform_id"
