@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="mt-1 mb-1">
+    <div class="m-1 p-1">
         <div class="row">
             <div class="col-sm">
                 <div>@include('partials.row_formal_name')</div>
