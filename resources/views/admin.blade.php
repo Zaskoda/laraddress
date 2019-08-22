@@ -7,7 +7,7 @@
     @if($isAdmin)
     <div class="container">
         @foreach (App\Contact::all() as $contact)
-        <div class="card mt-1 mb-1">
+        <div class="card mt-1 mb-1 p1">
             @include('partials.contact_row', ['contact' => $contact])
         </div>
         @endforeach
