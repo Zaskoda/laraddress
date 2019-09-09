@@ -1,3 +1,6 @@
+@if($contact->sirenAccounts->count())
+    <p>Please take a moment to connect with me on any of the following platforms:</p>
+@endif
 @foreach($contact->sirenAccounts as $account)
 <div class="m-1">
     <i class="fa fa-fw fa-{{ $account->platform->icon }} text-muted mr-1"></i>

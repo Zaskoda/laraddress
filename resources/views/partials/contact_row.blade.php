@@ -10,10 +10,12 @@
                 @include('partials.row_postal_address')
             </div>
             <div class="col-sm">
+                <div>
                 @include('partials.row_phone_number')
-            </div>
-            <div class="col-sm">
+                </div>
+                <div>
                 @include('partials.row_email_account')
+                </div>
             </div>
             <div class="col-sm">
                 @include('partials.row_siren_platform')
