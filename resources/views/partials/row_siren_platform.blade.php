@@ -1,5 +1,5 @@
 @if($contact->sirenAccounts->count())
-    <p>Please take a moment to connect with me on any of the following platforms:</p>
+    <p class="lead">Please take a moment to connect with me on any of the following platforms:</p>
 @endif
 @foreach($contact->sirenAccounts as $account)
 <div class="m-1">

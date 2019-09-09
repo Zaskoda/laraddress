@@ -1,7 +1,7 @@
 
 <div class="" id="containerCard">
     <div class="mt-1 mb-2">
-        <h2>{{ $adminName }}'s Info</h2>
+        <h2>{{ $adminName }}'s Contact Info</h2>
 
         @include('partials.row_formal_name', ['contact' => $adminContact])
         @include('partials.row_nickname')
